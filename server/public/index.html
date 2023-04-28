@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <style>
+        * {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Facebook login</h1>
+    <hr/>
+
+    <!-- The JS SDK Login Button -->
+    <div
+        id="login-button"
+        class="fb-login-button"
+        data-max-rows="1"
+        data-size="large"
+        data-button-type="continue_with"
+        data-use-continue-as="true"
+        data-onlogin="checkLoginState();"
+        data-scope="public_profile,email"	
+        data-auto-logout-link="false"
+    ></div>
+
+    <br/><br/>
+    <!-- Logout Button -->
+    <button id="logout-button" style="display:none">
+        Logout
+    </button>
+
+    <script>
+
+        function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+            console.log('statusChangeCallback');
+            console.log(response);                   // The current login status of the person.
+            if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+    
+                const logoutButton = document.getElementById("logout-button");
+                logoutButton.style.display = "inline";
+                logoutButton.addEventListener("click", () => {
+                    return logout(response);
+                })
+
+                fetch("http://localhost:8080/api/auth/facebook", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({fb_token: response.authResponse.accessToken})
+                })
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+                    .catch( console.warn )
+    
+                testAPI();  
+            }
+        }
+    
+    
+        function checkLoginState() {               // Called when a person is finished with the Login Button.
+            FB.getLoginStatus(function(response) {   // See the onlogin handler
+                statusChangeCallback(response);
+            });
+        }
+    
+    
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '621596226450477',
+                cookie     : true,                     // Enable cookies to allow the server to access the session.
+                xfbml      : true,                     // Parse social plugins on this webpage.
+                version    : 'v0.16'           // Use this Graph API version for this call.
+            });
+    
+            FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+                statusChangeCallback(response);        // Returns the login status.
+            });
+        };
+        
+        function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+                console.log('Successful login for: ' + response.name);
+            })
+        }
+    
+        function logout(response) {
+            FB.logout(function(response) {
+                // user is now logged out
+                console.log("El usuario ha cerrado sesión");
+            });
+        }
+    
+    </script>
+
+    <!-- Load the JS SDK asynchronously -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</body>
+</html>
