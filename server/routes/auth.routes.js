@@ -1,9 +1,9 @@
 const authRouter = require("express").Router();
 
 const { check } = require("express-validator");
-const { authPost, authFacebook } = require("../controllers/auth.controller");
+const { authPost, authFacebook, authValidToken } = require("../controllers/auth.controller");
 
-const validateFields = require("../middlewares/validateFields");
+const { validateFields, validateJWT } = require("../middlewares");
 
 const { existEmailLogin, isUserActive } = require("../helpers/dbValidators");
 
@@ -27,5 +27,7 @@ authRouter.post(
 	],
 	authFacebook
 );
+
+authRouter.get("/", validateJWT, authValidToken)
 
 module.exports = authRouter;

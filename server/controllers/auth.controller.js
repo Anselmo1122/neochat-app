@@ -77,7 +77,22 @@ const authFacebook = async (req, res) => {
 	}
 };
 
+const authValidToken = async (req = request, res = response) => {
+
+	const user = req.user;
+
+	// Generar JWT.
+	const token = await generateJWT(user.id);
+
+	res.json({
+		user,
+		token
+	})
+
+}
+
 module.exports = {
 	authPost,
 	authFacebook,
+	authValidToken
 };
