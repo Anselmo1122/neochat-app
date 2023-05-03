@@ -30,7 +30,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <main id="login-chat">
       <form className="form" onSubmit={handleSubmit} ref={formLogin}>
         <h2>Login</h2>
         <div className="input">
@@ -48,7 +48,7 @@ function Login() {
         </div>
         <p className="forget">Forget Password ? <a href="#">Click Here</a></p>
       </form>
-    </div>
+    </main>
   )
 }
 
