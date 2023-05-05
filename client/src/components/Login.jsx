@@ -43,7 +43,7 @@ function Login() {
             <input type="password" name="password" id="password" placeholder="••••••" autoComplete="off" />
           </div>
           <div className="inputBox">
-            <input type="submit" />
+            <input type="submit" value="Sign In"/>
           </div>
         </div>
         <p className="forget">Forget Password ? <a href="#">Click Here</a></p>

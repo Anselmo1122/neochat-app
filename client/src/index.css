@@ -9,5 +9,52 @@
 
 body {
   min-height: 100vh;
-  background: #131419;
+  background: var(--color-primary);
+}
+
+:root {
+  --color-primary: #444444;
+  --color-placeholder: #686868;
+
+  --color-text-primary: #c7c7c7;
+  --color-text-secondary: #9c9c9c;
+
+  --color-text-purple: #ce4fed;
+  --color-text-purple-active: #752e87;
+
+  --box-shadow: 
+      -5px -5px 10px rgba(255, 255, 255, 0.09),
+      5px 5px 15px rgba(0,0,0,0.5);
+  --box-shadow-inset:  
+      inset -2px -2px 6px rgba(255,255,255,0.1),
+      inset 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+/* Sobreescritura de estilos por defecto */
+::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-purple);
+  border-radius: 5px;
+}
+
+/* Estilos base */
+button {
+  border: none;
+  cursor: pointer;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+input {
+  outline: none;
+  border: none;
 }

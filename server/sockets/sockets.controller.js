@@ -25,12 +25,12 @@ const socketsController = async (socket = new Socket(), io) => {
 		io.emit("users-active", chatMessages.usersArr);
 	});
 
-	socket.on("send-message", ({ uid, message }) => {
+	socket.on("send-message", ({ uid, message, time }) => {
 		if (uid) {
 			// Mensaje privado
 			socket.to(uid).emit("private-message", { of: user.name, message });
 		} else {
-			chatMessages.sendMessage(user.id, user.name, message);
+			chatMessages.sendMessage(user.id, user.name, message, time);
 			io.emit("receive-message", chatMessages.lastTeenMessages);
 		}
 	});

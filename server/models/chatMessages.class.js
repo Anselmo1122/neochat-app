@@ -1,10 +1,11 @@
 
 class Message {
 
-  constructor( uid, name, message ) {
+  constructor( uid, name, message, time ) {
     this.uid = uid;
     this.name = name;
     this.message = message;
+    this.time = time;
   }
 
 }
@@ -17,7 +18,7 @@ class ChatMessages {
   }
 
   get lastTeenMessages() {
-    this.messages = this.messages.splice(0, 10);
+    this.messages = this.messages.splice(0, 100);
     return this.messages;
   }
 
@@ -25,9 +26,9 @@ class ChatMessages {
     return Object.values( this.users );
   }
 
-  sendMessage( uid, name, message ) {
+  sendMessage( uid, name, message, time ) {
     this.messages.unshift(
-      new Message(uid, name, message)
+      new Message(uid, name, message, time)
     )
   }
 
