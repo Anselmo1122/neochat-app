@@ -34,6 +34,10 @@ const socketsController = async (socket = new Socket(), io) => {
 			io.emit("receive-message", chatMessages.lastTeenMessages);
 		}
 	});
+
+	socket.on("disconnect-user", () => {
+		socket.disconnect();
+	})
 };
 
 module.exports = {

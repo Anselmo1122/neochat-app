@@ -1,0 +1,56 @@
+#app-setting {
+  padding: 10px 20px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 300;
+  backdrop-filter: blur(1px);
+  background-color: #00000052;
+}
+
+#app-setting.hidden {
+  display: none;
+}
+#app-setting.show {
+  display: flex;
+}
+
+.setting {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  border-radius: var(--border-radius);
+  background: var(--color-primary);
+  box-shadow: var(--box-shadow);
+}
+
+.setting__option button {
+  margin: 0 8px;
+  padding: 8px 19px;
+  font-size: .9rem;
+  background: var(--color-primary);
+  box-shadow: var(--box-shadow);
+  color: var(--color-text-purple);
+}
+
+.setting__option button.enabled {
+  box-shadow: var(--box-shadow-inset);
+  color: var(--color-text-purple-active);
+}
+
+.setting__option:nth-child(3) button {
+  color: var(--color-text-danger);
+}
+
+.close-button {
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: var(--color-text-primary);
+}

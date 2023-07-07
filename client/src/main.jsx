@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
-import Chat from './components/chat.jsx'
+import Chat from './components/Chat.jsx'
 import Login from './components/Login.jsx'
 
 const router = createBrowserRouter([

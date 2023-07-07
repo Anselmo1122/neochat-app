@@ -1,65 +1,33 @@
-// Utilities of dependencies
-import { io } from "socket.io-client";
 
 // React utilities
 import "../styles/Chat.css";
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-
-// Utils
-import url from "../utils/url";
+import { useRef } from "react";
 
 // Components
-import Header from "./chat/Header";
+// import Header from "./chat/Header";
 import Aside from "./chat/Aside";
 import Box from "./chat/Box";
 import Footer from "./chat/Footer";
+import { AppContext } from "../hooks/useAppContext";
+import Setting from "./chat/Setting";
+import { useSockets } from "../hooks/useSockets";
 
 function Chat() {
 
 	let socket = useRef(null);
+
+	const {
+		user, 
+		setUser, 
+		chat, 
+		setChat, 
+		setting, 
+		setSetting, 
+		usersActive, 
+		messages 
+	} = useSockets(socket);
+	
 	let messageRef = useRef();
-	const token = localStorage.getItem("token") || "";
-
-	const navigate = useNavigate();
-
-	const [user, setUser] = useState(null);
-	const [usersActive, setUsersActive] = useState([]);
-	const [messages, setMessages] = useState([]);
-
-	useEffect(() => {
-
-		const validateToken = async () => {
-			const response = await fetch(url, { headers: { Authorization: token } });
-
-			const { user: userDB, token: tokenDB } = await response.json();
-			localStorage.setItem("token", tokenDB);
-			setUser(userDB);
-
-			await connectSocket();
-		};
-
-		const connectSocket = async () => {
-			socket.current = io({
-				extraHeaders: { Authorization: localStorage.getItem("token") },
-			});
-
-			socket.current.on("connect", () => console.log("Sockets online"));
-
-			socket.current.on("disconnect", () => {
-				localStorage.clear();
-				navigate("/");
-				console.log("Sockets offline");
-			});
-
-			socket.current.on("receive-message", (messages) => setMessages(messages));
-			socket.current.on("users-active", (usersActive) => setUsersActive(usersActive));
-			socket.current.on("private-message", (message) => console.log(message));
-		};
-
-		const main = async () => await validateToken();
-		main();
-	}, [navigate, token]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -73,20 +41,27 @@ function Chat() {
 	}
 
 	return (
-		<section id="chat-app">
-			<Header socket={ socket.current } />
-			<Aside 
-				users={ usersActive } 
-				user={ user } 
-			/>
-			<Box 
-				user={ user }
-				messages={ messages }
-				message={ messageRef }
-				handleSubmit={ handleSubmit }
-			/>
-			<Footer />
-		</section>
+		<AppContext.Provider value={{ 
+			user, 
+			setUser,
+			chat, 
+			setChat,
+			setting,
+			setSetting
+		}}>
+			<section id="chat-app" className={setting.theme === "light" ? "chat-app__light" : "chat-app"} >
+				{/* <Header socket={ socket.current } /> */}
+				<Setting socket={ socket.current } />
+				<Aside usersActive={ usersActive } />
+				<Box
+					user={ user }
+					messages={ messages }
+					message={ messageRef }
+					handleSubmit={ handleSubmit }
+				/>
+				<Footer />
+			</section>
+		</AppContext.Provider>
 	);
 }
 

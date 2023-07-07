@@ -1,68 +1,61 @@
-
-#chat-users {
-  grid-row: 2 / 9;
-
-  padding: 10px;
-  /* border-radius: 10px;
-  box-shadow: var(--box-shadow); */
+#chat-menu {
+  width: 100%;
+  max-width: 500px;
+  min-height: 100vh;
+  background-color: var(--color-primary);
+  position: absolute;
+  z-index: 200;
 }
 
-.users-active {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 10px;
-}
-
-.user-active {
-  margin: 10px 0;
+.menu__header {
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 25px;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
+.header__title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+}
+.header__icon {
+  font-size: 2rem;
+  text-shadow: var(--box-shadow);
+  cursor: pointer;
+}
 
-.user-active__data {
+.menu__chats {
+  padding: 30px 25px;
+}
+.chats__chat {
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+.chat-icon {
+  font-size: 1.4rem;
+}
+.chat-title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.chat-options {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.user-active__data h4 {
-  font-size: 1rem;
-  font-weight: 500;
-}
-.user-active__data p {
-  line-height: 2;
-  font-size: .8rem;
+  gap: 5px;
 }
 
-.user-active__img {
-  margin-right: 20px;
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 30px;
-  box-shadow: var(--box-shadow);
+.show {
+  display: block;
 }
 
-.connection-indicator {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin: 0 16px 0 0;
-  background: radial-gradient(#00ff55 0%, #007122);
-  box-shadow: 0 0 5px 5px #10c84755;
-}
-
-.nouser-active {
-  width: 100%;
-  text-align: center;
-}
-
-.nouser-active h4 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--color-placeholder);
+.hidden {
+  display: none;
 }

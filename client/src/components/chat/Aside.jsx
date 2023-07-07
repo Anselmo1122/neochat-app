@@ -1,50 +1,54 @@
 import PropTypes from "prop-types";
 import "../../styles/chat/Aside.css";
 
-import userImage from "../../assets/user-image.jpg";
+import { RiSettings4Fill } from "react-icons/ri";
+import { BiSearchAlt2 } from "react-icons/bi";
+import { TfiWorld } from "react-icons/tfi";
+import { BsFillPersonFill } from "react-icons/bs";
+import { useAppContext } from "../../hooks/useAppContext";
+import { nanoid } from "nanoid";
+// import userImage from "../../assets/user-image.jpg";
 
-function Aside({ users, user }) {
+function Aside({ usersActive = [] }) {
+
+  const { chat, setChat, setting, setSetting } = useAppContext();
+
+  const handleClick = () => {
+    setChat({ 
+      id: nanoid(),
+      name: "General Chat",
+      isActive: true
+    })
+  }
+
   return (
-    <aside id="chat-users">
-			<ul className="users-active">
-				{
-					users.length === 0 ? (
-						<li className="nouser-active">
-							<h4>No users connected</h4>
-						</li>
-					) : (
-						users.map(({ name, uid }) => {
-								return (
-									(user.uid === uid) || (users.length === 1) ? (
-										(users.length >= 2) ? null : (
-											<li className="nouser-active">
-												<h4>No users connected</h4>
-											</li>
-										)
-									) : (
-									<li key={uid} className="user-active">
-										<div className="user-active__data">
-											<img className="user-active__img" src={userImage} alt="User"/>
-											<div>
-												<h4>{ name }</h4>
-												<p>Online</p>
-											</div>
-										</div>
-										<div className="connection-indicator"></div>
-									</li>
-								)
-							)
-						})
-					)
-				}
-			</ul>
+    <aside id="chat-menu" className={ chat.isActive ? "hidden" : "show" }>
+			<section className="menu__header">
+        <RiSettings4Fill className="header__icon" onClick={ () => {
+          setSetting({
+            ...setting,
+            isActive: true
+          })
+        }} />
+        <h1 className="header__title">Neochat</h1>
+        <BiSearchAlt2 className="header__icon"/>
+			</section>
+      <ul className="menu__chats">
+        <li className="chats__chat" onClick={handleClick}>
+          <TfiWorld className="chat-icon"/>
+          <h4 className="chat-title">General Chat</h4>
+          <div className="chat-options">
+            <BsFillPersonFill className="chat-icon"/>
+            <span>{ usersActive.length }</span>
+          </div>
+        </li>
+      </ul>
 		</aside>
   )
 }
 
 Aside.propTypes = {
-  users: PropTypes.array,
-	user: PropTypes.object,
+  usersActive: PropTypes.array,
 }
 
 export default Aside

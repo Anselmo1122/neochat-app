@@ -12,6 +12,12 @@ body {
   background: var(--color-primary);
 }
 
+#chat-app {
+  transition: 1s;
+  background: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
 :root {
   --color-primary: #444444;
   --color-placeholder: #686868;
@@ -19,8 +25,11 @@ body {
   --color-text-primary: #c7c7c7;
   --color-text-secondary: #9c9c9c;
 
-  --color-text-purple: #ce4fed;
-  --color-text-purple-active: #752e87;
+  --color-text-purple: #4faeed;
+  --color-text-purple-active: #2e6887;
+  --color-text-danger: #ed4f5c;
+
+  --border-radius: 10px;
 
   --box-shadow: 
       -5px -5px 10px rgba(255, 255, 255, 0.09),
@@ -30,7 +39,56 @@ body {
       inset 2px 2px 6px rgba(0,0,0,0.8);
 }
 
+:root .chat-app {
+  --color-primary: #444444;
+  --color-placeholder: #686868;
+
+  --color-text-primary: #c7c7c7;
+  --color-text-secondary: #9c9c9c;
+
+  --color-text-purple: #4faeed;
+  --color-text-purple-active: #2e6887;
+  --color-text-danger: #ed4f5c;
+
+  --border-radius: 10px;
+
+  --box-shadow: 
+      -5px -5px 10px rgba(255, 255, 255, 0.09),
+      5px 5px 15px rgba(0,0,0,0.5);
+  --box-shadow-inset:  
+      inset -2px -2px 6px rgba(255,255,255,0.1),
+      inset 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+:root .chat-app__light {
+  --color-primary: #ababab;
+  --color-placeholder: #686868;
+
+  --color-text-primary: #3e3e3e;
+  --color-text-secondary: #9c9c9c;
+
+  --color-text-purple: rgb(43, 92, 124)
+  --color-text-purple-active: #468ab2;
+  --color-text-danger: #72282e;
+
+  --border-radius: 10px;
+
+  --box-shadow: 
+      -5px -5px 10px rgba(255, 255, 255, 0.09),
+      5px 5px 15px rgba(69, 69, 69, 0.5);
+  --box-shadow-inset:  
+      inset -2px -2px 6px rgba(149, 149, 149, 0.1),
+      inset 2px 2px 6px rgba(68, 68, 68, 0.8);
+}
+
+
+
 /* Sobreescritura de estilos por defecto */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   background: transparent;
@@ -40,10 +98,15 @@ body {
   border-radius: 5px;
 }
 
+::selection {
+  background-color: #2e6887;
+}
+
 /* Estilos base */
 button {
   border: none;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 ul li {
@@ -57,4 +120,12 @@ img {
 input {
   outline: none;
   border: none;
+}
+
+/* Elementos personalizados */
+
+.divider {
+  width: 100%;
+  background: var(--color-text-purple);
+  height: 2px;
 }

@@ -1,16 +1,17 @@
 #chat-app {
-  height: 768px;
-  width: 1480px;
-  max-width: 1480px;
-  padding: 0 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: grid;
-  grid-template-columns: minmax(100px, 380px) repeat(4, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  gap: 25px;
+  margin: auto;
+  height: 100vh;
+  max-width: 500px;
+  position: relative;
+}
 
-  color: var(--color-text-primary);
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  #chat-app {
+    height: 95vh;
+    border-radius: var(--border-radius);
+  }
 }

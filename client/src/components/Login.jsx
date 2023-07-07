@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import { useRef } from "react";
+import url from "../utils/url";
 
 function Login() {
 
@@ -16,7 +17,7 @@ function Login() {
       if (el.name.length > 0) formData[el.name] = el.value;
     }
 
-    fetch( "http://localhost:8001/api/auth/" + "login", {
+    fetch( url + "login", {
       method: "POST",
       body: JSON.stringify( formData ),
       headers: { "Content-Type": "application/json" }
@@ -31,22 +32,22 @@ function Login() {
 
   return (
     <main id="login-chat">
-      <form className="form" onSubmit={handleSubmit} ref={formLogin}>
-        <h2>Login</h2>
-        <div className="input">
-          <div className="inputBox">
+      <form className="login" onSubmit={handleSubmit} ref={formLogin}>
+        <h2 className="login__title">Login</h2>
+        <div className="login__input">
+          <div className="input__box">
             <label htmlFor="email">Email</label>
             <input type="text" name="email" id="email" placeholder="example@xyz.com" autoComplete="off" />
           </div>
-          <div className="inputBox">
+          <div className="input__box">
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" placeholder="••••••" autoComplete="off" />
           </div>
-          <div className="inputBox">
+          <div className="input__box">
             <input type="submit" value="Sign In"/>
           </div>
         </div>
-        <p className="forget">Forget Password ? <a href="#">Click Here</a></p>
+        <p className="forget"><span>Forget Password ?</span><a href="#">Click Here</a></p>
       </form>
     </main>
   )
