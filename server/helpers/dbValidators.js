@@ -1,7 +1,6 @@
 const RoleModel = require("../models/role.model");
 const UserModel = require("../models/user.model");
-const CategoryModel = require("../models/category.model");
-const ProductModel = require("../models/product.model");
+const ChatModel = require("../models/chat.model");
 
 const isRoleValid = async (role = "") => {
 	const existRole = await RoleModel.findOne({ role });
@@ -12,6 +11,7 @@ const existEmail = async (email = "") => {
 	const emailExist = await UserModel.findOne({ email });
 	if (emailExist) throw new Error(`El email ${email} ya está registrado`);
 };
+
 const existEmailLogin = async (email = "") => {
 	const emailExist = await UserModel.findOne({ email });
 	if (!emailExist) throw new Error(`El email ${email} no está registrado`);
@@ -27,14 +27,9 @@ const existUserById = async (id) => {
 	if (!existUser) throw new Error(`El usuario con el id ${id} no existe`);
 };
 
-const existCategoryById = async (id) => {
-	const existCategory = await CategoryModel.findById(id);
-	if (!existCategory) throw new Error(`La categoría con el id ${id} no existe`);
-};
-
-const existProductById = async (id) => {
-	const existProduct = await ProductModel.findById(id);
-	if (!existProduct) throw new Error(`El producto con el id ${id} no existe`);
+const existChatById = async (id) => {
+	const existChat = await ChatModel.findById(id);
+	if (!existChat) throw new Error(`El chat con el id ${id} no existe`);
 };
 
 const isCollectionValid = (collection = "", validCollections = []) => {
@@ -49,7 +44,6 @@ module.exports = {
 	existEmailLogin,
 	isUserActive,
 	existUserById,
-	existCategoryById,
-	existProductById,
+	existChatById,
 	isCollectionValid
 };

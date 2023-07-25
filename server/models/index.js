@@ -6,8 +6,6 @@ const ChatMessages = require("./chatMessages.class");
 module.exports = {
 	UserModel,
 	RoleModel,
-	CategoryModel,
 	ServerModel,
-	ProductModel,
 	ChatMessages
 };
