@@ -5,6 +5,7 @@ const {
   chatsGet,
   chatGet,
   chatPut,
+	chatPatch,
   chatDelete
 } = require("../controllers/chat.controller");
 
@@ -14,7 +15,8 @@ const { validateJWT, validateFields } = require("../middlewares");
 
 chatRouter.get("/", chatsGet);
 
-chatRouter.get("/:id",
+chatRouter.get(
+	"/:id",
   [
     check("id", "No es un id válido.").isMongoId(),
     check("id").custom(existChatById),
@@ -43,6 +45,20 @@ chatRouter.put(
 	],
 	chatPut
 );
+
+// Actualización de mensajes del Chat.
+
+chatRouter.patch(
+	"/:id",
+	[
+		validateJWT,
+		check("id", "No es un id válido.").isMongoId(),
+		check("id").custom(existChatById),
+		check("name", "El nombre nuevo es obligatorio").not().isEmpty(),
+		validateFields,
+	],
+	chatPatch
+)
 
 chatRouter.delete(
 	"/:id",

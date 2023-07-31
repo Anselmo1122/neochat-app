@@ -69,6 +69,25 @@ const chatPut = async (req = request, res = response) => {
 	});
 }
 
+// Controlador para añadir mensaje al chat.
+const chatPatch = async (req = request, res = response) => {
+  const { id } = req.params;
+	const { uid, name, message, time } = req.body;
+
+  const newMessage = { uid, name, message, time };
+
+  const oldChat = await ChatModel.findById(id);
+
+  const chat = await ChatModel.findByIdAndUpdate(id, {
+    messages: [...oldChat.messages, newMessage],
+  })
+
+	res.json({
+		message: "Chat updated",
+		chat,
+	});
+}
+
 // Controlador para eliminar chat.
 const chatDelete = async (req, res) => {
   const { id } = req.params;
@@ -89,5 +108,6 @@ module.exports = {
   chatsGet,
   chatGet,
   chatPut,
+  chatPatch,
   chatDelete
 }

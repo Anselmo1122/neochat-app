@@ -28,7 +28,7 @@ export const useSockets = (socket) => {
 	useEffect(() => {
 
 		const validateToken = async () => {
-			const response = await fetch(url, { headers: { Authorization: token } });
+			const response = await fetch(url + "auth/", { headers: { Authorization: token } });
 
 			const { user: userDB, token: tokenDB } = await response.json();
 			localStorage.setItem("token", tokenDB);

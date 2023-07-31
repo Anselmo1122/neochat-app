@@ -72,7 +72,7 @@ const userDelete = async (req, res = response) => {
 	// Usuario eliminado cambiando su "state" a "false"
 	const user = await UserModel.findByIdAndUpdate(id, { state: false });
 
-	// Usuario eliminado de de forma permanente
+	// Usuario eliminado de forma permanente
 	const userAuthorized = req.user;
 
 	res.json({
