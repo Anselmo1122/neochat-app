@@ -78,6 +78,10 @@ const chatPatch = async (req = request, res = response) => {
 
   const oldChat = await ChatModel.findById(id);
 
+  if (oldChat.messages.length > 200) {
+    await oldChat.update({ messages: oldChat.messages.splice(0, 200) })
+  }
+
   const chat = await ChatModel.findByIdAndUpdate(id, {
     messages: [...oldChat.messages, newMessage],
   })

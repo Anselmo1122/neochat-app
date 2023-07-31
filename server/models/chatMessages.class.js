@@ -18,7 +18,7 @@ class ChatMessages {
   }
 
   get lastTeenMessages() {
-    this.messages = this.messages.splice(0, 100);
+    this.messages = this.messages.splice(0, 200);
     return this.messages;
   }
 
