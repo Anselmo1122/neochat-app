@@ -3,8 +3,8 @@
   max-width: 500px;
   min-height: 100vh;
   background-color: var(--color-primary);
-  position: absolute;
-  z-index: 200;
+  /* position: absolute;
+  z-index: 200; */
 }
 
 .menu__header {
@@ -31,12 +31,15 @@
 }
 .chats__chat {
   cursor: pointer;
+  margin: 10px 0;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
+  color: var(--color-secondary);
+  /* border-bottom: .5px solid var(--color-text-danger); */
 }
 .chat-icon {
   font-size: 1.4rem;
@@ -44,6 +47,7 @@
 .chat-title {
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: var(--color-text-purple)
 }
 .chat-options {
   display: flex;

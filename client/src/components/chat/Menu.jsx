@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "../../styles/chat/Aside.css";
+import "../../styles/chat/Menu.css";
 
 import { RiSettings4Fill } from "react-icons/ri";
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -7,11 +7,25 @@ import { TfiWorld } from "react-icons/tfi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useAppContext } from "../../hooks/useAppContext";
 import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
+import url from "../../utils/url";
+import { Link } from "react-router-dom";
 // import userImage from "../../assets/user-image.jpg";
 
-function Aside({ usersActive = [] }) {
+function Menu({ usersActive = [] }) {
 
   const { chat, setChat, setting, setSetting } = useAppContext();
+
+  const [ chats, setChats] = useState();
+
+  useEffect(() => {
+    const getChats = async () => {
+      let res = await fetch(url + "chat/");
+      let data = await res.json();
+      setChats(data.chats);
+    }
+    getChats();
+  }, [])
 
   const handleClick = () => {
     setChat({ 
@@ -42,13 +56,32 @@ function Aside({ usersActive = [] }) {
             <span>{ usersActive.length }</span>
           </div>
         </li>
+        {
+          chats?.map((chat) => {
+            return(
+              <li key={chat._id}>
+                <Link 
+                  to={"/chat/" + chat._id} 
+                  className="chats__chat"
+                  onClick={() => setChat(chat)}
+                >
+                  <h4 className="chat-title">{ chat.name }</h4>
+                  <div className="chat-options">
+                    <BsFillPersonFill className="chat-icon"/>
+                    <span>{ chat.users.length }</span>
+                  </div>
+                </Link>
+              </li>
+            )
+          })
+        }
       </ul>
 		</aside>
   )
 }
 
-Aside.propTypes = {
+Menu.propTypes = {
   usersActive: PropTypes.array,
 }
 
-export default Aside
+export default Menu

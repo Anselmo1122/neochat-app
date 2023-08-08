@@ -21,7 +21,9 @@ export const useSockets = (socket) => {
 		JSON.parse(window.localStorage.getItem("config")) || initialSetting
 	);
 	const [usersActive, setUsersActive] = useState([]);
-	const [messages, setMessages] = useState([]);useEffect(() => {
+	const [messages, setMessages] = useState([]);
+	
+	useEffect(() => {
 		window.localStorage.setItem("config", JSON.stringify(setting))
 	}, [setting])
 
@@ -67,6 +69,6 @@ export const useSockets = (socket) => {
     setting, 
     setSetting, 
     usersActive,
-    messages
+    messages,
   }
 }

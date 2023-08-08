@@ -1,7 +1,11 @@
 #chat-app {
+  padding: .5rem .4rem;
   margin: auto;
   height: 100vh;
-  max-width: 500px;
+  /* max-width: 500px; */
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
   position: relative;
 }
 
@@ -11,7 +15,7 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   #chat-app {
-    height: 95vh;
-    border-radius: var(--border-radius);
+    /* height: 95vh; */
+    /* border-radius: var(--border-radius); */
   }
 }

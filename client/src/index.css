@@ -122,6 +122,11 @@ input {
   border: none;
 }
 
+a {
+  color: var(--color-text-danger);
+  text-decoration: none;
+}
+
 /* Elementos personalizados */
 
 .divider {

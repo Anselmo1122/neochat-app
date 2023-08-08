@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import url from "../utils/url";
 
@@ -17,7 +17,7 @@ function Login() {
       if (el.name.length > 0) formData[el.name] = el.value;
     }
 
-    fetch( url + "login", {
+    fetch( url + "auth/login", {
       method: "POST",
       body: JSON.stringify( formData ),
       headers: { "Content-Type": "application/json" }
@@ -25,7 +25,7 @@ function Login() {
       .then((res) => res.json())
       .then(({ token }) => {
         localStorage.setItem("token", token);
-        navigate("chat");
+        navigate("/chat");
       })
       .catch((err) => console.error(err))
   }

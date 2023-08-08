@@ -1,30 +1,40 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types'
 import "../../styles/chat/Box.css"
 
 // import userImage from "../../assets/user-image.jpg"
 import { MdSend } from "react-icons/md";
-import { TfiWorld } from "react-icons/tfi";
 import { BiLeftArrow } from "react-icons/bi";
 
 import { motion } from "framer-motion"
-import { useAppContext } from '../../hooks/useAppContext';
+// import { useAppContext } from '../../hooks/useAppContext';
+import { useLoaderData, useOutletContext } from 'react-router-dom';
 
-function Box({ user, messages, message, handleSubmit }) {
+function Box() {
 
-	const { chat, setChat } = useAppContext();
+	const { user, messages, messageRef, handleSubmit, socket } = useOutletContext();
+	// const { chat, setChat } = useAppContext();
+	const { chat } = useLoaderData();
+
+	useEffect(() => {
+		const connectToChat = async () => {
+			await socket.emit("connect-chat", { chat })
+		};
+		connectToChat();
+	}, [chat, socket])
 
   return (
     <main id="chat-box">
 				<section className="box__header">
 					<button className='header__back'>
 						<BiLeftArrow className='back__icon' onClick={() => {
-							setChat((prevState) => {
-								return { ...prevState, isActive: false }
-							})
+							// setChat((prevState) => {
+							// 	return { ...prevState, isActive: false }
+							// })
+							console.log(chat);
 						}} />
 					</button>
 					<article className="header__chat">
-						<TfiWorld className='chat__icon' />
 						<h2 className='chat__title'>{ chat.name }</h2>
 					</article>
 				</section>
@@ -66,7 +76,7 @@ function Box({ user, messages, message, handleSubmit }) {
 				</section>
 				<section className="box__input">
 					<form className="input__form" onSubmit={ handleSubmit }>
-						<input className="form__message" type="text" ref={ message } placeholder='Message...'/>
+						<input className="form__message" type="text" ref={ messageRef } placeholder='Message...'/>
 						<button className='form__send'>
 							<MdSend className='send-icon' />
 						</button>
