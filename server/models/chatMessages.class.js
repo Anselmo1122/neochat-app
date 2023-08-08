@@ -1,3 +1,4 @@
+const ChatModel = require("./chat.model");
 
 class Message {
 
@@ -17,8 +18,9 @@ class ChatMessages {
     this.users = {};
   }
 
-  get lastTeenMessages() {
-    this.messages = this.messages.splice(0, 200);
+  async lastMessages( id ) {
+    const chat = await ChatModel.findById(id);
+    this.messages = chat.messages;
     return this.messages;
   }
 
